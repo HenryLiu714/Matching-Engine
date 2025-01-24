@@ -8,9 +8,9 @@ class Trade {
     std::string user_id;
     double price;
     bool direction;
-    
+
     public:
-        void Hello();
+        Trade(std::string symbol_, std::string user_id_, double price_, bool direction_);
 };
 
 #endif /* AAFEF02B_8017_492A_B710_ED679DFADA9A */
