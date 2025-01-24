@@ -10,7 +10,7 @@ class Trade {
     bool direction;
 
     public:
-        Trade(std::string symbol_, std::string user_id_, double price_, bool direction_);
+        Trade(const std::string& symbol_, const std::string& user_id_, double price_, bool direction_);
 };
 
 #endif /* AAFEF02B_8017_492A_B710_ED679DFADA9A */

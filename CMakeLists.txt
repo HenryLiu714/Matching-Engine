@@ -4,6 +4,8 @@ project(MyProject VERSION 1.0
                   DESCRIPTION "Very nice project"
                   LANGUAGES CXX)
 
+add_subdirectory(lib)
+
 file(GLOB_RECURSE SRC_FILES lib/*.cpp)
 add_executable(exchange src/main.cpp ${SRC_FILES})
-target_include_directories(exchange PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_link_libraries(exchange PUBLIC lib)
