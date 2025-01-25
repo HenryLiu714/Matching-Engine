@@ -12,7 +12,6 @@ class MatchingEngine {
     std::unordered_map<std::string, std::vector<Trade>> trade_queue;
     
     public:
-        void keyboard_listener();
         /**
          * @brief Construct a new Matching Engine object
          * 
