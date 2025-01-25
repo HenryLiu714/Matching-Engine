@@ -10,7 +10,7 @@ void hi() {
 }
 
 int main() {
-    Trade t = Trade("HI", "HI", 1, 1);
+    // Trade t = Trade("HI", "HI", 1, 1);
     MatchingEngine engine = MatchingEngine();
     engine.run_engine();
 
