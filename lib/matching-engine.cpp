@@ -6,12 +6,13 @@
 
 #include <matching-engine.h>
 #include <trade.h>
+#include <trademessage.pb.h>
 
 MatchingEngine::MatchingEngine() {
     trade_queue = std::unordered_map<std::string, std::vector<Trade>>();
 }
 
-static bool engine_running = true;
+static bool engine_running = false;
 
 /**
  * @brief 

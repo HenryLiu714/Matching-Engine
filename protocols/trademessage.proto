@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+enum Direction {
+    LONG = 0;
+    SHORT = 1;
+}
+
+enum OrderType {
+    MARKET = 0;
+    LIMIT = 1;
+}
+
+message NewOrderMessage {
+    // Unique from sender side
+    uint32 order_id = 1;
+    uint32 user_id = 2;
+        
+    string symbol = 3;
+    Direction side = 4;
+    uint64 transaction_time = 5;
+    double order_quantity = 6;
+    OrderType order_type = 7;
+
+    // Required for limit orders
+    optional double price = 8;
+}
+
+
+
