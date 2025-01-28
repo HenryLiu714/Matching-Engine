@@ -2,4 +2,5 @@
 .vscode/
 build/
 test/
-lib/CMakeFiles
+lib/CMakeFiles/
+include/protobuf/
