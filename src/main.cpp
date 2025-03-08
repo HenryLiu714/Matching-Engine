@@ -25,8 +25,13 @@ void protobuf_test() {
     m.set_order_quantity(order_quantity);
     m.set_order_type(order_type);
 
-    std::cout << m.symbol();
+    std::cout << m.DebugString();
+    string output;
+    m.SerializeToString(&output);
+    NewOrderMessage m2;
+    m2.ParseFromString(output);
 
+    std::cout << m2.DebugString();
 }
 
 int main() {

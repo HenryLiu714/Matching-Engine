@@ -18,11 +18,11 @@ message NewOrderMessage {
     string symbol = 3;
     Direction side = 4;
     uint64 transaction_time = 5;
-    double order_quantity = 6;
+    float order_quantity = 6;
     OrderType order_type = 7;
 
     // Required for limit orders
-    optional double price = 8;
+    optional float price = 8;
 }
 
 

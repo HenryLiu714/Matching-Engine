@@ -3,4 +3,6 @@
 build/
 test/
 lib/CMakeFiles/
-include/protobuf/
+include/
+python/__pycache__/
+python/env/

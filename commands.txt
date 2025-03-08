@@ -1,0 +1,2 @@
+protoc -I=. --cpp_out=lib ./protocols/trademessage.proto 
+protoc -I=. --python_out=python ./protocols/trademessage.proto 

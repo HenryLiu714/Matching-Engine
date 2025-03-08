@@ -3,6 +3,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <iostream>
+#include <iomanip>
+#include<cstdio>
 
 #include <matching-engine.h>
 #include <trade.h>
@@ -12,7 +14,31 @@ MatchingEngine::MatchingEngine() {
     trade_queue = std::unordered_map<std::string, std::vector<Trade>>();
 }
 
-static bool engine_running = false;
+static bool engine_running = true;
+
+void receive_message(NewOrderMessage * msg, int clientSocket) {
+    uint32_t msgLength;
+    int bytesReceived = recv(clientSocket, &msgLength, sizeof(msgLength), 0);
+    if (bytesReceived <= 0) {
+        std::cerr << "Failed to receive message length." << std::endl;
+        return;
+    }
+
+    msgLength = ntohl(msgLength);  // Convert from network byte order
+
+    char *buffer = new char[msgLength];
+    bytesReceived = recv(clientSocket, buffer, msgLength, 0);
+
+    if (bytesReceived <= 0) {
+        std::cerr << "Failed to receive message." << std::endl;
+    } else {
+        if (msg->ParseFromArray(buffer, msgLength)) {
+            std::cout << "Success!";
+        } else {
+            std::cerr << "Failed to parse Protobuf message." << std::endl;
+        }
+    }
+}
 
 /**
  * @brief 
@@ -40,9 +66,14 @@ void MatchingEngine::run_engine() {
         std::cout << "next" << std::endl;
         int client = accept(entry_socket, nullptr, nullptr);
 
-        char buffer[1024] = {0};
-        recv(client, buffer, sizeof(buffer), 0);
+        NewOrderMessage order_message;
 
-        std::cout << "Message received: " << buffer << std::endl;
+        receive_message(&order_message, client);
+
+        std::cout << order_message.DebugString() << "\n";
+        std::cout << "Mission complete";
+
+        char response[6] = "Helo!";
+        send(client, response, sizeof(response), 0);
     }
 }
