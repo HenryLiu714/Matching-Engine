@@ -11,7 +11,7 @@
 #include <trademessage.pb.h>
 
 MatchingEngine::MatchingEngine() {
-    trade_queue = std::unordered_map<std::string, std::vector<Trade>>();
+    order_book = std::map<std::string, std::map<float, Trade>>();
 }
 
 static bool engine_running = true;
@@ -63,7 +63,7 @@ void MatchingEngine::run_engine() {
 
     // Start engine polling loop
     while (engine_running) {
-        std::cout << "next" << std::endl;
+        std::cout << "Waiting for next order....." << std::endl;
         int client = accept(entry_socket, nullptr, nullptr);
 
         NewOrderMessage order_message;

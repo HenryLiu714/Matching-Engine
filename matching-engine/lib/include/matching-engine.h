@@ -3,13 +3,13 @@
 
 #include <vector>
 #include <string>
-#include <unordered_map>
+#include <map>
 
 #include <trade.h>
 
 
 class MatchingEngine {
-    std::unordered_map<std::string, std::vector<Trade>> trade_queue;
+    std::map<std::string, std::map<float, Trade>> order_book;
     
     public:
         /**
@@ -19,7 +19,7 @@ class MatchingEngine {
         MatchingEngine();
         
         /**
-         * @brief 
+         * @brief Runs our matching engine
          * 
          */
         void run_engine();

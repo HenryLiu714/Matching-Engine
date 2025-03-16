@@ -1,8 +1,9 @@
 .cache/
 .vscode/
-build/
+matching-engine/build/
 test/
-lib/CMakeFiles/
-include/
-python/__pycache__/
-python/env/
+matching-engine/lib/CMakeFiles/
+matching-engine/include/
+tests/python/__pycache__/
+tests/python/env/
+tests/python/protocols/__pycache__
