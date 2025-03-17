@@ -6,41 +6,72 @@
 
 using namespace std;
 
-void protobuf_test() {
-    NewOrderMessage m;
+void print_vector(std::vector<OrderResponse> vec) {
+    for (const auto& item : vec) {
+        cout << item.DebugString() << " ";
+    }
+    cout << endl;
+}
 
-    uint32_t user_id = 1;
-    uint32_t order_id = 10;
-    std::string symbol = "AAPL";
-    Direction side = LONG;
-    uint64_t transaction_time = 1000;
-    double order_quantity = 5;
-    OrderType order_type = MARKET;
+void test1() {
+    OrderMessage msg;
+    msg.set_order_id(1);
+    msg.set_user_id(1);
+    msg.set_symbol("AAPL");
+    msg.set_side(Direction::LONG);
+    msg.set_transaction_time(123456789);
+    msg.set_order_quantity(10.0);
+    msg.set_price(150.0);
+    
+    OrderMessage msg2;
+    msg2.CopyFrom(msg);
+    msg2.set_order_id(2);
+    msg2.set_side(Direction::LONG);
 
-    m.set_user_id(user_id);
-    m.set_order_id(order_id);
-    m.set_symbol(symbol);
-    m.set_side(side);
-    m.set_transaction_time(transaction_time);
-    m.set_order_quantity(order_quantity);
-    m.set_order_type(order_type);
+    OrderMessage msg3;
+    msg3.set_order_id(3);
+    msg3.set_user_id(2);
+    msg3.set_symbol("AAPL");
+    msg3.set_side(Direction::SHORT);
+    msg3.set_transaction_time(987654321);
+    msg3.set_order_quantity(15.0);
+    msg3.set_price(150.0);
 
-    std::cout << m.DebugString();
-    string output;
-    m.SerializeToString(&output);
-    NewOrderMessage m2;
-    m2.ParseFromString(output);
+    OrderMessage msg4;
+    msg4.set_order_id(4);
+    msg4.set_user_id(2);
+    msg4.set_symbol("AAPL");
+    msg4.set_side(Direction::SHORT);
+    msg4.set_transaction_time(987654321);
+    msg4.set_order_quantity(15.0);
+    msg4.set_price(150.0);
 
-    std::cout << m2.DebugString();
+    OrderMessage msg5;
+    msg5.CopyFrom(msg);
+    msg5.set_order_id(5);
+    msg5.set_side(Direction::LONG);
+    msg5.set_order_quantity(10.0);
+
+    MatchingEngine engine = MatchingEngine();
+    std::cout << "Message 1" << std::endl;
+    engine.handle_order_message(&msg);
+
+    std::cout << "Message 2" << std::endl;
+    engine.handle_order_message(&msg2);
+
+    std::cout << "Message 3" << std::endl;
+    engine.handle_order_message(&msg3);
+
+    std::cout << "Message 4" << std::endl;
+    engine.handle_order_message(&msg4);
+
+    std::cout << "Message 5" << std::endl;
+    engine.handle_order_message(&msg5);
 }
 
 int main() {
-    Trade t = Trade("HI", "HI", 1, 1);
     MatchingEngine engine = MatchingEngine();
-    engine.run_engine();
-
-    protobuf_test();
     
-    cout << "HI";
+    test1();
     return 0;
 }

@@ -8,3 +8,4 @@ tests/python/__pycache__/
 tests/python/env/
 tests/python/protocols/__pycache__
 commands.txt
+.env

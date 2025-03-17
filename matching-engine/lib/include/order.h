@@ -3,24 +3,20 @@
 
 #include <string>
 #include <stdint.h>
-
-enum Direction {
-    LONG,
-    SHORT
-};
+#include <trademessage.pb.h>
 
 class Order {
-    uint64_t order_id;
-    uint64_t user_id;
-
-    std::string symbol;
-    Direction direction;
-    
-    uint64_t transaction_time;
-    float order_quantity;
-    float price;
-
     public:
+        uint64_t order_id;
+        uint64_t user_id;
+
+        std::string symbol;
+        Direction direction;
+        
+        uint64_t transaction_time;
+        float order_quantity;
+        float price;
+
         Order(uint64_t order_id_, uint64_t user_id_, const std::string& symbol_,
             Direction direction_, uint64_t transaction_time_, 
             float order_quantity_, float price_);

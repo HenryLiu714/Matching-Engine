@@ -19,10 +19,29 @@ message OrderMessage {
     Direction side = 4;
     uint64 transaction_time = 5;
     float order_quantity = 6;
-    OrderType order_type = 7;
+    float price = 7;
+}
 
-    // Required for limit orders
-    optional float price = 8;
+enum OrderStatus {
+    PENDING = 0;
+    FILLED = 1;
+    PARTIAL = 2;
+    CANCELLED = 3;
+}
+
+message OrderResponse {
+    // Unique from sender side
+    uint64 order_id = 1;
+    uint64 user_id = 2;
+
+    string symbol = 3;
+    Direction side = 4;
+    uint64 transaction_time = 5;
+    float order_quantity = 6;
+    float price = 7;
+
+    // Order status
+    OrderStatus status = 8; // e.g., "filled", "pending", "cancelled"
 }
 
 
