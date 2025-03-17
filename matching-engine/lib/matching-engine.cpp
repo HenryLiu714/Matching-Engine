@@ -11,12 +11,12 @@
 #include <trademessage.pb.h>
 
 MatchingEngine::MatchingEngine() {
-    order_book = std::map<std::string, std::map<float, Trade>>();
+    order_book = std::map<std::string, std::map<float, std::deque<Trade>>>();
 }
 
 static bool engine_running = true;
 
-void receive_message(NewOrderMessage * msg, int clientSocket) {
+void receive_message(OrderMessage * msg, int clientSocket) {
     uint32_t msgLength;
     int bytesReceived = recv(clientSocket, &msgLength, sizeof(msgLength), 0);
     if (bytesReceived <= 0) {
@@ -66,7 +66,7 @@ void MatchingEngine::run_engine() {
         std::cout << "Waiting for next order....." << std::endl;
         int client = accept(entry_socket, nullptr, nullptr);
 
-        NewOrderMessage order_message;
+        OrderMessage order_message;
 
         receive_message(&order_message, client);
 

@@ -1,2 +1,2 @@
-protoc -I=. --cpp_out=lib ./protocols/trademessage.proto 
-protoc -I=. --python_out=python ./protocols/trademessage.proto 
+protoc -I=. --cpp_out=matching-engine/lib ./protocols/trademessage.proto
+protoc -I=. --python_out=tests/python ./protocols/trademessage.proto 

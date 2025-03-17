@@ -45,11 +45,11 @@ struct TableStruct_protocols_2ftrademessage_2eproto {
   static const uint32_t offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_protocols_2ftrademessage_2eproto;
-class NewOrderMessage;
-struct NewOrderMessageDefaultTypeInternal;
-extern NewOrderMessageDefaultTypeInternal _NewOrderMessage_default_instance_;
+class OrderMessage;
+struct OrderMessageDefaultTypeInternal;
+extern OrderMessageDefaultTypeInternal _OrderMessage_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
-template<> ::NewOrderMessage* Arena::CreateMaybeMessage<::NewOrderMessage>(Arena*);
+template<> ::OrderMessage* Arena::CreateMaybeMessage<::OrderMessage>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 enum Direction : int {
@@ -104,24 +104,24 @@ inline bool OrderType_Parse(
 }
 // ===================================================================
 
-class NewOrderMessage final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:NewOrderMessage) */ {
+class OrderMessage final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:OrderMessage) */ {
  public:
-  inline NewOrderMessage() : NewOrderMessage(nullptr) {}
-  ~NewOrderMessage() override;
-  explicit PROTOBUF_CONSTEXPR NewOrderMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+  inline OrderMessage() : OrderMessage(nullptr) {}
+  ~OrderMessage() override;
+  explicit PROTOBUF_CONSTEXPR OrderMessage(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
 
-  NewOrderMessage(const NewOrderMessage& from);
-  NewOrderMessage(NewOrderMessage&& from) noexcept
-    : NewOrderMessage() {
+  OrderMessage(const OrderMessage& from);
+  OrderMessage(OrderMessage&& from) noexcept
+    : OrderMessage() {
     *this = ::std::move(from);
   }
 
-  inline NewOrderMessage& operator=(const NewOrderMessage& from) {
+  inline OrderMessage& operator=(const OrderMessage& from) {
     CopyFrom(from);
     return *this;
   }
-  inline NewOrderMessage& operator=(NewOrderMessage&& from) noexcept {
+  inline OrderMessage& operator=(OrderMessage&& from) noexcept {
     if (this == &from) return *this;
     if (GetOwningArena() == from.GetOwningArena()
   #ifdef PROTOBUF_FORCE_COPY_IN_MOVE
@@ -144,20 +144,20 @@ class NewOrderMessage final :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return default_instance().GetMetadata().reflection;
   }
-  static const NewOrderMessage& default_instance() {
+  static const OrderMessage& default_instance() {
     return *internal_default_instance();
   }
-  static inline const NewOrderMessage* internal_default_instance() {
-    return reinterpret_cast<const NewOrderMessage*>(
-               &_NewOrderMessage_default_instance_);
+  static inline const OrderMessage* internal_default_instance() {
+    return reinterpret_cast<const OrderMessage*>(
+               &_OrderMessage_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(NewOrderMessage& a, NewOrderMessage& b) {
+  friend void swap(OrderMessage& a, OrderMessage& b) {
     a.Swap(&b);
   }
-  inline void Swap(NewOrderMessage* other) {
+  inline void Swap(OrderMessage* other) {
     if (other == this) return;
   #ifdef PROTOBUF_FORCE_COPY_IN_SWAP
     if (GetOwningArena() != nullptr &&
@@ -170,7 +170,7 @@ class NewOrderMessage final :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(NewOrderMessage* other) {
+  void UnsafeArenaSwap(OrderMessage* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
     InternalSwap(other);
@@ -178,14 +178,14 @@ class NewOrderMessage final :
 
   // implements Message ----------------------------------------------
 
-  NewOrderMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
-    return CreateMaybeMessage<NewOrderMessage>(arena);
+  OrderMessage* New(::PROTOBUF_NAMESPACE_ID::Arena* arena = nullptr) const final {
+    return CreateMaybeMessage<OrderMessage>(arena);
   }
   using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const NewOrderMessage& from);
+  void CopyFrom(const OrderMessage& from);
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom( const NewOrderMessage& from) {
-    NewOrderMessage::MergeImpl(*this, from);
+  void MergeFrom( const OrderMessage& from) {
+    OrderMessage::MergeImpl(*this, from);
   }
   private:
   static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg);
@@ -203,15 +203,15 @@ class NewOrderMessage final :
   void SharedCtor(::PROTOBUF_NAMESPACE_ID::Arena* arena, bool is_message_owned);
   void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(NewOrderMessage* other);
+  void InternalSwap(OrderMessage* other);
 
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "NewOrderMessage";
+    return "OrderMessage";
   }
   protected:
-  explicit NewOrderMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+  explicit OrderMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                        bool is_message_owned = false);
   public:
 
@@ -248,22 +248,22 @@ class NewOrderMessage final :
   std::string* _internal_mutable_symbol();
   public:
 
-  // uint32 order_id = 1;
+  // uint64 order_id = 1;
   void clear_order_id();
-  uint32_t order_id() const;
-  void set_order_id(uint32_t value);
+  uint64_t order_id() const;
+  void set_order_id(uint64_t value);
   private:
-  uint32_t _internal_order_id() const;
-  void _internal_set_order_id(uint32_t value);
+  uint64_t _internal_order_id() const;
+  void _internal_set_order_id(uint64_t value);
   public:
 
-  // uint32 user_id = 2;
+  // uint64 user_id = 2;
   void clear_user_id();
-  uint32_t user_id() const;
-  void set_user_id(uint32_t value);
+  uint64_t user_id() const;
+  void set_user_id(uint64_t value);
   private:
-  uint32_t _internal_user_id() const;
-  void _internal_set_user_id(uint32_t value);
+  uint64_t _internal_user_id() const;
+  void _internal_set_user_id(uint64_t value);
   public:
 
   // uint64 transaction_time = 5;
@@ -315,7 +315,7 @@ class NewOrderMessage final :
   void _internal_set_price(float value);
   public:
 
-  // @@protoc_insertion_point(class_scope:NewOrderMessage)
+  // @@protoc_insertion_point(class_scope:OrderMessage)
  private:
   class _Internal;
 
@@ -326,8 +326,8 @@ class NewOrderMessage final :
     ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
     mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
     ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr symbol_;
-    uint32_t order_id_;
-    uint32_t user_id_;
+    uint64_t order_id_;
+    uint64_t user_id_;
     uint64_t transaction_time_;
     int side_;
     float order_quantity_;
@@ -346,84 +346,84 @@ class NewOrderMessage final :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// NewOrderMessage
+// OrderMessage
 
-// uint32 order_id = 1;
-inline void NewOrderMessage::clear_order_id() {
-  _impl_.order_id_ = 0u;
+// uint64 order_id = 1;
+inline void OrderMessage::clear_order_id() {
+  _impl_.order_id_ = uint64_t{0u};
 }
-inline uint32_t NewOrderMessage::_internal_order_id() const {
+inline uint64_t OrderMessage::_internal_order_id() const {
   return _impl_.order_id_;
 }
-inline uint32_t NewOrderMessage::order_id() const {
-  // @@protoc_insertion_point(field_get:NewOrderMessage.order_id)
+inline uint64_t OrderMessage::order_id() const {
+  // @@protoc_insertion_point(field_get:OrderMessage.order_id)
   return _internal_order_id();
 }
-inline void NewOrderMessage::_internal_set_order_id(uint32_t value) {
+inline void OrderMessage::_internal_set_order_id(uint64_t value) {
   
   _impl_.order_id_ = value;
 }
-inline void NewOrderMessage::set_order_id(uint32_t value) {
+inline void OrderMessage::set_order_id(uint64_t value) {
   _internal_set_order_id(value);
-  // @@protoc_insertion_point(field_set:NewOrderMessage.order_id)
+  // @@protoc_insertion_point(field_set:OrderMessage.order_id)
 }
 
-// uint32 user_id = 2;
-inline void NewOrderMessage::clear_user_id() {
-  _impl_.user_id_ = 0u;
+// uint64 user_id = 2;
+inline void OrderMessage::clear_user_id() {
+  _impl_.user_id_ = uint64_t{0u};
 }
-inline uint32_t NewOrderMessage::_internal_user_id() const {
+inline uint64_t OrderMessage::_internal_user_id() const {
   return _impl_.user_id_;
 }
-inline uint32_t NewOrderMessage::user_id() const {
-  // @@protoc_insertion_point(field_get:NewOrderMessage.user_id)
+inline uint64_t OrderMessage::user_id() const {
+  // @@protoc_insertion_point(field_get:OrderMessage.user_id)
   return _internal_user_id();
 }
-inline void NewOrderMessage::_internal_set_user_id(uint32_t value) {
+inline void OrderMessage::_internal_set_user_id(uint64_t value) {
   
   _impl_.user_id_ = value;
 }
-inline void NewOrderMessage::set_user_id(uint32_t value) {
+inline void OrderMessage::set_user_id(uint64_t value) {
   _internal_set_user_id(value);
-  // @@protoc_insertion_point(field_set:NewOrderMessage.user_id)
+  // @@protoc_insertion_point(field_set:OrderMessage.user_id)
 }
 
 // string symbol = 3;
-inline void NewOrderMessage::clear_symbol() {
+inline void OrderMessage::clear_symbol() {
   _impl_.symbol_.ClearToEmpty();
 }
-inline const std::string& NewOrderMessage::symbol() const {
-  // @@protoc_insertion_point(field_get:NewOrderMessage.symbol)
+inline const std::string& OrderMessage::symbol() const {
+  // @@protoc_insertion_point(field_get:OrderMessage.symbol)
   return _internal_symbol();
 }
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
-void NewOrderMessage::set_symbol(ArgT0&& arg0, ArgT... args) {
+void OrderMessage::set_symbol(ArgT0&& arg0, ArgT... args) {
  
  _impl_.symbol_.Set(static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
-  // @@protoc_insertion_point(field_set:NewOrderMessage.symbol)
+  // @@protoc_insertion_point(field_set:OrderMessage.symbol)
 }
-inline std::string* NewOrderMessage::mutable_symbol() {
+inline std::string* OrderMessage::mutable_symbol() {
   std::string* _s = _internal_mutable_symbol();
-  // @@protoc_insertion_point(field_mutable:NewOrderMessage.symbol)
+  // @@protoc_insertion_point(field_mutable:OrderMessage.symbol)
   return _s;
 }
-inline const std::string& NewOrderMessage::_internal_symbol() const {
+inline const std::string& OrderMessage::_internal_symbol() const {
   return _impl_.symbol_.Get();
 }
-inline void NewOrderMessage::_internal_set_symbol(const std::string& value) {
+inline void OrderMessage::_internal_set_symbol(const std::string& value) {
   
   _impl_.symbol_.Set(value, GetArenaForAllocation());
 }
-inline std::string* NewOrderMessage::_internal_mutable_symbol() {
+inline std::string* OrderMessage::_internal_mutable_symbol() {
   
   return _impl_.symbol_.Mutable(GetArenaForAllocation());
 }
-inline std::string* NewOrderMessage::release_symbol() {
-  // @@protoc_insertion_point(field_release:NewOrderMessage.symbol)
+inline std::string* OrderMessage::release_symbol() {
+  // @@protoc_insertion_point(field_release:OrderMessage.symbol)
   return _impl_.symbol_.Release();
 }
-inline void NewOrderMessage::set_allocated_symbol(std::string* symbol) {
+inline void OrderMessage::set_allocated_symbol(std::string* symbol) {
   if (symbol != nullptr) {
     
   } else {
@@ -435,115 +435,115 @@ inline void NewOrderMessage::set_allocated_symbol(std::string* symbol) {
     _impl_.symbol_.Set("", GetArenaForAllocation());
   }
 #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
-  // @@protoc_insertion_point(field_set_allocated:NewOrderMessage.symbol)
+  // @@protoc_insertion_point(field_set_allocated:OrderMessage.symbol)
 }
 
 // .Direction side = 4;
-inline void NewOrderMessage::clear_side() {
+inline void OrderMessage::clear_side() {
   _impl_.side_ = 0;
 }
-inline ::Direction NewOrderMessage::_internal_side() const {
+inline ::Direction OrderMessage::_internal_side() const {
   return static_cast< ::Direction >(_impl_.side_);
 }
-inline ::Direction NewOrderMessage::side() const {
-  // @@protoc_insertion_point(field_get:NewOrderMessage.side)
+inline ::Direction OrderMessage::side() const {
+  // @@protoc_insertion_point(field_get:OrderMessage.side)
   return _internal_side();
 }
-inline void NewOrderMessage::_internal_set_side(::Direction value) {
+inline void OrderMessage::_internal_set_side(::Direction value) {
   
   _impl_.side_ = value;
 }
-inline void NewOrderMessage::set_side(::Direction value) {
+inline void OrderMessage::set_side(::Direction value) {
   _internal_set_side(value);
-  // @@protoc_insertion_point(field_set:NewOrderMessage.side)
+  // @@protoc_insertion_point(field_set:OrderMessage.side)
 }
 
 // uint64 transaction_time = 5;
-inline void NewOrderMessage::clear_transaction_time() {
+inline void OrderMessage::clear_transaction_time() {
   _impl_.transaction_time_ = uint64_t{0u};
 }
-inline uint64_t NewOrderMessage::_internal_transaction_time() const {
+inline uint64_t OrderMessage::_internal_transaction_time() const {
   return _impl_.transaction_time_;
 }
-inline uint64_t NewOrderMessage::transaction_time() const {
-  // @@protoc_insertion_point(field_get:NewOrderMessage.transaction_time)
+inline uint64_t OrderMessage::transaction_time() const {
+  // @@protoc_insertion_point(field_get:OrderMessage.transaction_time)
   return _internal_transaction_time();
 }
-inline void NewOrderMessage::_internal_set_transaction_time(uint64_t value) {
+inline void OrderMessage::_internal_set_transaction_time(uint64_t value) {
   
   _impl_.transaction_time_ = value;
 }
-inline void NewOrderMessage::set_transaction_time(uint64_t value) {
+inline void OrderMessage::set_transaction_time(uint64_t value) {
   _internal_set_transaction_time(value);
-  // @@protoc_insertion_point(field_set:NewOrderMessage.transaction_time)
+  // @@protoc_insertion_point(field_set:OrderMessage.transaction_time)
 }
 
 // float order_quantity = 6;
-inline void NewOrderMessage::clear_order_quantity() {
+inline void OrderMessage::clear_order_quantity() {
   _impl_.order_quantity_ = 0;
 }
-inline float NewOrderMessage::_internal_order_quantity() const {
+inline float OrderMessage::_internal_order_quantity() const {
   return _impl_.order_quantity_;
 }
-inline float NewOrderMessage::order_quantity() const {
-  // @@protoc_insertion_point(field_get:NewOrderMessage.order_quantity)
+inline float OrderMessage::order_quantity() const {
+  // @@protoc_insertion_point(field_get:OrderMessage.order_quantity)
   return _internal_order_quantity();
 }
-inline void NewOrderMessage::_internal_set_order_quantity(float value) {
+inline void OrderMessage::_internal_set_order_quantity(float value) {
   
   _impl_.order_quantity_ = value;
 }
-inline void NewOrderMessage::set_order_quantity(float value) {
+inline void OrderMessage::set_order_quantity(float value) {
   _internal_set_order_quantity(value);
-  // @@protoc_insertion_point(field_set:NewOrderMessage.order_quantity)
+  // @@protoc_insertion_point(field_set:OrderMessage.order_quantity)
 }
 
 // .OrderType order_type = 7;
-inline void NewOrderMessage::clear_order_type() {
+inline void OrderMessage::clear_order_type() {
   _impl_.order_type_ = 0;
 }
-inline ::OrderType NewOrderMessage::_internal_order_type() const {
+inline ::OrderType OrderMessage::_internal_order_type() const {
   return static_cast< ::OrderType >(_impl_.order_type_);
 }
-inline ::OrderType NewOrderMessage::order_type() const {
-  // @@protoc_insertion_point(field_get:NewOrderMessage.order_type)
+inline ::OrderType OrderMessage::order_type() const {
+  // @@protoc_insertion_point(field_get:OrderMessage.order_type)
   return _internal_order_type();
 }
-inline void NewOrderMessage::_internal_set_order_type(::OrderType value) {
+inline void OrderMessage::_internal_set_order_type(::OrderType value) {
   
   _impl_.order_type_ = value;
 }
-inline void NewOrderMessage::set_order_type(::OrderType value) {
+inline void OrderMessage::set_order_type(::OrderType value) {
   _internal_set_order_type(value);
-  // @@protoc_insertion_point(field_set:NewOrderMessage.order_type)
+  // @@protoc_insertion_point(field_set:OrderMessage.order_type)
 }
 
 // optional float price = 8;
-inline bool NewOrderMessage::_internal_has_price() const {
+inline bool OrderMessage::_internal_has_price() const {
   bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
   return value;
 }
-inline bool NewOrderMessage::has_price() const {
+inline bool OrderMessage::has_price() const {
   return _internal_has_price();
 }
-inline void NewOrderMessage::clear_price() {
+inline void OrderMessage::clear_price() {
   _impl_.price_ = 0;
   _impl_._has_bits_[0] &= ~0x00000001u;
 }
-inline float NewOrderMessage::_internal_price() const {
+inline float OrderMessage::_internal_price() const {
   return _impl_.price_;
 }
-inline float NewOrderMessage::price() const {
-  // @@protoc_insertion_point(field_get:NewOrderMessage.price)
+inline float OrderMessage::price() const {
+  // @@protoc_insertion_point(field_get:OrderMessage.price)
   return _internal_price();
 }
-inline void NewOrderMessage::_internal_set_price(float value) {
+inline void OrderMessage::_internal_set_price(float value) {
   _impl_._has_bits_[0] |= 0x00000001u;
   _impl_.price_ = value;
 }
-inline void NewOrderMessage::set_price(float value) {
+inline void OrderMessage::set_price(float value) {
   _internal_set_price(value);
-  // @@protoc_insertion_point(field_set:NewOrderMessage.price)
+  // @@protoc_insertion_point(field_set:OrderMessage.price)
 }
 
 #ifdef __GNUC__

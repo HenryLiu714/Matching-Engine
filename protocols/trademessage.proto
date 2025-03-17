@@ -10,10 +10,10 @@ enum OrderType {
     LIMIT = 1;
 }
 
-message NewOrderMessage {
+message OrderMessage {
     // Unique from sender side
-    uint32 order_id = 1;
-    uint32 user_id = 2;
+    uint64 order_id = 1;
+    uint64 user_id = 2;
         
     string symbol = 3;
     Direction side = 4;

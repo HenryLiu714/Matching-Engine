@@ -20,46 +20,46 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
-PROTOBUF_CONSTEXPR NewOrderMessage::NewOrderMessage(
+PROTOBUF_CONSTEXPR OrderMessage::OrderMessage(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_._has_bits_)*/{}
   , /*decltype(_impl_._cached_size_)*/{}
   , /*decltype(_impl_.symbol_)*/{&::_pbi::fixed_address_empty_string, ::_pbi::ConstantInitialized{}}
-  , /*decltype(_impl_.order_id_)*/0u
-  , /*decltype(_impl_.user_id_)*/0u
+  , /*decltype(_impl_.order_id_)*/uint64_t{0u}
+  , /*decltype(_impl_.user_id_)*/uint64_t{0u}
   , /*decltype(_impl_.transaction_time_)*/uint64_t{0u}
   , /*decltype(_impl_.side_)*/0
   , /*decltype(_impl_.order_quantity_)*/0
   , /*decltype(_impl_.order_type_)*/0
   , /*decltype(_impl_.price_)*/0} {}
-struct NewOrderMessageDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR NewOrderMessageDefaultTypeInternal()
+struct OrderMessageDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR OrderMessageDefaultTypeInternal()
       : _instance(::_pbi::ConstantInitialized{}) {}
-  ~NewOrderMessageDefaultTypeInternal() {}
+  ~OrderMessageDefaultTypeInternal() {}
   union {
-    NewOrderMessage _instance;
+    OrderMessage _instance;
   };
 };
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 NewOrderMessageDefaultTypeInternal _NewOrderMessage_default_instance_;
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 OrderMessageDefaultTypeInternal _OrderMessage_default_instance_;
 static ::_pb::Metadata file_level_metadata_protocols_2ftrademessage_2eproto[1];
 static const ::_pb::EnumDescriptor* file_level_enum_descriptors_protocols_2ftrademessage_2eproto[2];
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_protocols_2ftrademessage_2eproto = nullptr;
 
 const uint32_t TableStruct_protocols_2ftrademessage_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_._has_bits_),
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_._has_bits_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_.order_id_),
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_.user_id_),
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_.symbol_),
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_.side_),
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_.transaction_time_),
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_.order_quantity_),
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_.order_type_),
-  PROTOBUF_FIELD_OFFSET(::NewOrderMessage, _impl_.price_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_.order_id_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_.user_id_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_.symbol_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_.side_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_.transaction_time_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_.order_quantity_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_.order_type_),
+  PROTOBUF_FIELD_OFFSET(::OrderMessage, _impl_.price_),
   ~0u,
   ~0u,
   ~0u,
@@ -70,26 +70,26 @@ const uint32_t TableStruct_protocols_2ftrademessage_2eproto::offsets[] PROTOBUF_
   0,
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, 14, -1, sizeof(::NewOrderMessage)},
+  { 0, 14, -1, sizeof(::OrderMessage)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::_NewOrderMessage_default_instance_._instance,
+  &::_OrderMessage_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_protocols_2ftrademessage_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\034protocols/trademessage.proto\"\316\001\n\017NewOr"
-  "derMessage\022\020\n\010order_id\030\001 \001(\r\022\017\n\007user_id\030"
-  "\002 \001(\r\022\016\n\006symbol\030\003 \001(\t\022\030\n\004side\030\004 \001(\0162\n.Di"
-  "rection\022\030\n\020transaction_time\030\005 \001(\004\022\026\n\016ord"
-  "er_quantity\030\006 \001(\002\022\036\n\norder_type\030\007 \001(\0162\n."
-  "OrderType\022\022\n\005price\030\010 \001(\002H\000\210\001\001B\010\n\006_price*"
-  " \n\tDirection\022\010\n\004LONG\020\000\022\t\n\005SHORT\020\001*\"\n\tOrd"
-  "erType\022\n\n\006MARKET\020\000\022\t\n\005LIMIT\020\001b\006proto3"
+  "\n\034protocols/trademessage.proto\"\313\001\n\014Order"
+  "Message\022\020\n\010order_id\030\001 \001(\004\022\017\n\007user_id\030\002 \001"
+  "(\004\022\016\n\006symbol\030\003 \001(\t\022\030\n\004side\030\004 \001(\0162\n.Direc"
+  "tion\022\030\n\020transaction_time\030\005 \001(\004\022\026\n\016order_"
+  "quantity\030\006 \001(\002\022\036\n\norder_type\030\007 \001(\0162\n.Ord"
+  "erType\022\022\n\005price\030\010 \001(\002H\000\210\001\001B\010\n\006_price* \n\t"
+  "Direction\022\010\n\004LONG\020\000\022\t\n\005SHORT\020\001*\"\n\tOrderT"
+  "ype\022\n\n\006MARKET\020\000\022\t\n\005LIMIT\020\001b\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_protocols_2ftrademessage_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_protocols_2ftrademessage_2eproto = {
-    false, false, 317, descriptor_table_protodef_protocols_2ftrademessage_2eproto,
+    false, false, 314, descriptor_table_protodef_protocols_2ftrademessage_2eproto,
     "protocols/trademessage.proto",
     &descriptor_table_protocols_2ftrademessage_2eproto_once, nullptr, 0, 1,
     schemas, file_default_instances, TableStruct_protocols_2ftrademessage_2eproto::offsets,
@@ -133,23 +133,23 @@ bool OrderType_IsValid(int value) {
 
 // ===================================================================
 
-class NewOrderMessage::_Internal {
+class OrderMessage::_Internal {
  public:
-  using HasBits = decltype(std::declval<NewOrderMessage>()._impl_._has_bits_);
+  using HasBits = decltype(std::declval<OrderMessage>()._impl_._has_bits_);
   static void set_has_price(HasBits* has_bits) {
     (*has_bits)[0] |= 1u;
   }
 };
 
-NewOrderMessage::NewOrderMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+OrderMessage::OrderMessage(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:NewOrderMessage)
+  // @@protoc_insertion_point(arena_constructor:OrderMessage)
 }
-NewOrderMessage::NewOrderMessage(const NewOrderMessage& from)
+OrderMessage::OrderMessage(const OrderMessage& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
-  NewOrderMessage* const _this = this; (void)_this;
+  OrderMessage* const _this = this; (void)_this;
   new (&_impl_) Impl_{
       decltype(_impl_._has_bits_){from._impl_._has_bits_}
     , /*decltype(_impl_._cached_size_)*/{}
@@ -174,10 +174,10 @@ NewOrderMessage::NewOrderMessage(const NewOrderMessage& from)
   ::memcpy(&_impl_.order_id_, &from._impl_.order_id_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.price_) -
     reinterpret_cast<char*>(&_impl_.order_id_)) + sizeof(_impl_.price_));
-  // @@protoc_insertion_point(copy_constructor:NewOrderMessage)
+  // @@protoc_insertion_point(copy_constructor:OrderMessage)
 }
 
-inline void NewOrderMessage::SharedCtor(
+inline void OrderMessage::SharedCtor(
     ::_pb::Arena* arena, bool is_message_owned) {
   (void)arena;
   (void)is_message_owned;
@@ -185,8 +185,8 @@ inline void NewOrderMessage::SharedCtor(
       decltype(_impl_._has_bits_){}
     , /*decltype(_impl_._cached_size_)*/{}
     , decltype(_impl_.symbol_){}
-    , decltype(_impl_.order_id_){0u}
-    , decltype(_impl_.user_id_){0u}
+    , decltype(_impl_.order_id_){uint64_t{0u}}
+    , decltype(_impl_.user_id_){uint64_t{0u}}
     , decltype(_impl_.transaction_time_){uint64_t{0u}}
     , decltype(_impl_.side_){0}
     , decltype(_impl_.order_quantity_){0}
@@ -199,8 +199,8 @@ inline void NewOrderMessage::SharedCtor(
   #endif // PROTOBUF_FORCE_COPY_DEFAULT_STRING
 }
 
-NewOrderMessage::~NewOrderMessage() {
-  // @@protoc_insertion_point(destructor:NewOrderMessage)
+OrderMessage::~OrderMessage() {
+  // @@protoc_insertion_point(destructor:OrderMessage)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -208,17 +208,17 @@ NewOrderMessage::~NewOrderMessage() {
   SharedDtor();
 }
 
-inline void NewOrderMessage::SharedDtor() {
+inline void OrderMessage::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   _impl_.symbol_.Destroy();
 }
 
-void NewOrderMessage::SetCachedSize(int size) const {
+void OrderMessage::SetCachedSize(int size) const {
   _impl_._cached_size_.Set(size);
 }
 
-void NewOrderMessage::Clear() {
-// @@protoc_insertion_point(message_clear_start:NewOrderMessage)
+void OrderMessage::Clear() {
+// @@protoc_insertion_point(message_clear_start:OrderMessage)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -232,25 +232,25 @@ void NewOrderMessage::Clear() {
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-const char* NewOrderMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
+const char* OrderMessage::_InternalParse(const char* ptr, ::_pbi::ParseContext* ctx) {
 #define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
   _Internal::HasBits has_bits{};
   while (!ctx->Done(&ptr)) {
     uint32_t tag;
     ptr = ::_pbi::ReadTag(ptr, &tag);
     switch (tag >> 3) {
-      // uint32 order_id = 1;
+      // uint64 order_id = 1;
       case 1:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 8)) {
-          _impl_.order_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.order_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
         continue;
-      // uint32 user_id = 2;
+      // uint64 user_id = 2;
       case 2:
         if (PROTOBUF_PREDICT_TRUE(static_cast<uint8_t>(tag) == 16)) {
-          _impl_.user_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
+          _impl_.user_id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else
           goto handle_unusual;
@@ -261,7 +261,7 @@ const char* NewOrderMessage::_InternalParse(const char* ptr, ::_pbi::ParseContex
           auto str = _internal_mutable_symbol();
           ptr = ::_pbi::InlineGreedyStringParser(str, ptr, ctx);
           CHK_(ptr);
-          CHK_(::_pbi::VerifyUTF8(str, "NewOrderMessage.symbol"));
+          CHK_(::_pbi::VerifyUTF8(str, "OrderMessage.symbol"));
         } else
           goto handle_unusual;
         continue;
@@ -332,22 +332,22 @@ failure:
 #undef CHK_
 }
 
-uint8_t* NewOrderMessage::_InternalSerialize(
+uint8_t* OrderMessage::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:NewOrderMessage)
+  // @@protoc_insertion_point(serialize_to_array_start:OrderMessage)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // uint32 order_id = 1;
+  // uint64 order_id = 1;
   if (this->_internal_order_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(1, this->_internal_order_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(1, this->_internal_order_id(), target);
   }
 
-  // uint32 user_id = 2;
+  // uint64 user_id = 2;
   if (this->_internal_user_id() != 0) {
     target = stream->EnsureSpace(target);
-    target = ::_pbi::WireFormatLite::WriteUInt32ToArray(2, this->_internal_user_id(), target);
+    target = ::_pbi::WireFormatLite::WriteUInt64ToArray(2, this->_internal_user_id(), target);
   }
 
   // string symbol = 3;
@@ -355,7 +355,7 @@ uint8_t* NewOrderMessage::_InternalSerialize(
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       this->_internal_symbol().data(), static_cast<int>(this->_internal_symbol().length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "NewOrderMessage.symbol");
+      "OrderMessage.symbol");
     target = stream->WriteStringMaybeAliased(
         3, this->_internal_symbol(), target);
   }
@@ -400,12 +400,12 @@ uint8_t* NewOrderMessage::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:NewOrderMessage)
+  // @@protoc_insertion_point(serialize_to_array_end:OrderMessage)
   return target;
 }
 
-size_t NewOrderMessage::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:NewOrderMessage)
+size_t OrderMessage::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:OrderMessage)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -419,14 +419,14 @@ size_t NewOrderMessage::ByteSizeLong() const {
         this->_internal_symbol());
   }
 
-  // uint32 order_id = 1;
+  // uint64 order_id = 1;
   if (this->_internal_order_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_order_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_order_id());
   }
 
-  // uint32 user_id = 2;
+  // uint64 user_id = 2;
   if (this->_internal_user_id() != 0) {
-    total_size += ::_pbi::WireFormatLite::UInt32SizePlusOne(this->_internal_user_id());
+    total_size += ::_pbi::WireFormatLite::UInt64SizePlusOne(this->_internal_user_id());
   }
 
   // uint64 transaction_time = 5;
@@ -464,17 +464,17 @@ size_t NewOrderMessage::ByteSizeLong() const {
   return MaybeComputeUnknownFieldsSize(total_size, &_impl_._cached_size_);
 }
 
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData NewOrderMessage::_class_data_ = {
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData OrderMessage::_class_data_ = {
     ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSourceCheck,
-    NewOrderMessage::MergeImpl
+    OrderMessage::MergeImpl
 };
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*NewOrderMessage::GetClassData() const { return &_class_data_; }
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*OrderMessage::GetClassData() const { return &_class_data_; }
 
 
-void NewOrderMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
-  auto* const _this = static_cast<NewOrderMessage*>(&to_msg);
-  auto& from = static_cast<const NewOrderMessage&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:NewOrderMessage)
+void OrderMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
+  auto* const _this = static_cast<OrderMessage*>(&to_msg);
+  auto& from = static_cast<const OrderMessage&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:OrderMessage)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -510,18 +510,18 @@ void NewOrderMessage::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const 
   _this->_internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
-void NewOrderMessage::CopyFrom(const NewOrderMessage& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:NewOrderMessage)
+void OrderMessage::CopyFrom(const OrderMessage& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:OrderMessage)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
 }
 
-bool NewOrderMessage::IsInitialized() const {
+bool OrderMessage::IsInitialized() const {
   return true;
 }
 
-void NewOrderMessage::InternalSwap(NewOrderMessage* other) {
+void OrderMessage::InternalSwap(OrderMessage* other) {
   using std::swap;
   auto* lhs_arena = GetArenaForAllocation();
   auto* rhs_arena = other->GetArenaForAllocation();
@@ -532,14 +532,14 @@ void NewOrderMessage::InternalSwap(NewOrderMessage* other) {
       &other->_impl_.symbol_, rhs_arena
   );
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(NewOrderMessage, _impl_.price_)
-      + sizeof(NewOrderMessage::_impl_.price_)
-      - PROTOBUF_FIELD_OFFSET(NewOrderMessage, _impl_.order_id_)>(
+      PROTOBUF_FIELD_OFFSET(OrderMessage, _impl_.price_)
+      + sizeof(OrderMessage::_impl_.price_)
+      - PROTOBUF_FIELD_OFFSET(OrderMessage, _impl_.order_id_)>(
           reinterpret_cast<char*>(&_impl_.order_id_),
           reinterpret_cast<char*>(&other->_impl_.order_id_));
 }
 
-::PROTOBUF_NAMESPACE_ID::Metadata NewOrderMessage::GetMetadata() const {
+::PROTOBUF_NAMESPACE_ID::Metadata OrderMessage::GetMetadata() const {
   return ::_pbi::AssignDescriptors(
       &descriptor_table_protocols_2ftrademessage_2eproto_getter, &descriptor_table_protocols_2ftrademessage_2eproto_once,
       file_level_metadata_protocols_2ftrademessage_2eproto[0]);
@@ -547,9 +547,9 @@ void NewOrderMessage::InternalSwap(NewOrderMessage* other) {
 
 // @@protoc_insertion_point(namespace_scope)
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::NewOrderMessage*
-Arena::CreateMaybeMessage< ::NewOrderMessage >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::NewOrderMessage >(arena);
+template<> PROTOBUF_NOINLINE ::OrderMessage*
+Arena::CreateMaybeMessage< ::OrderMessage >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::OrderMessage >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

@@ -4,12 +4,13 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <deque>
 
 #include <trade.h>
 
 
 class MatchingEngine {
-    std::map<std::string, std::map<float, Trade>> order_book;
+    std::map<std::string, std::map<float, std::deque<Trade>>> order_book;
     
     public:
         /**
@@ -23,6 +24,9 @@ class MatchingEngine {
          * 
          */
         void run_engine();
+    
+    private:
+        
 };
 
 # endif
