@@ -6,23 +6,95 @@
 #include <iomanip>
 #include<cstdio>
 #include <memory>
+#include <stdexcept>
+#include <arpa/inet.h>
+#include <unistd.h>
 
 #include <matching-engine.h>
 #include <order.h>
 #include <trademessage.pb.h>
 
-MatchingEngine::MatchingEngine() {
-    order_book = std::map<std::string, std::map<float, std::deque<std::unique_ptr<Order>>>>();
-}
-
 static bool engine_running = true;
 
-void receive_order_message(OrderMessage* msg, int clientSocket) {
+MatchingEngine::MatchingEngine() {
+    order_book = std::map<std::string, std::map<float, std::deque<std::unique_ptr<Order>>>>();
+    order_responses = std::vector<OrderResponse>();
+
+    server_socket = setup_server_socket();
+    client_socket = setup_client_socket();
+}
+
+/**
+ * @brief Set the up server socket object
+ * 
+ * @return int 
+ */
+int MatchingEngine::setup_server_socket() {
+    // Setting up server socket
+    int entry_socket = socket(AF_INET, SOCK_STREAM, 0);
+
+    sockaddr_in server_address;
+    server_address.sin_family = AF_INET;
+    server_address.sin_port = htons(ORDER_PORT);
+    server_address.sin_addr.s_addr = INADDR_ANY;
+
+    // Binding socket, setting to server mode
+    bind(entry_socket, (struct sockaddr*) &server_address, sizeof(server_address));
+    listen(entry_socket, 5);
+
+    return entry_socket;
+}
+
+/**
+ * @brief 
+ * 
+ * @return int 
+ */
+int MatchingEngine::setup_client_socket() {
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    
+    if (sock < 0) {
+        std::cerr << "Failed to create socket." << std::endl;
+        return -1;
+    }
+
+    struct sockaddr_in server_addr;
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(RESPONSE_PORT); 
+
+    if (inet_pton(AF_INET, RESPONSE_IP.c_str(), &server_addr.sin_addr) <= 0) {
+        std::cerr << "Invalid address/Address not supported." << std::endl;
+        close(sock);
+        return -1;
+    }
+
+    // Connect to server
+    if (connect(sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
+        std::cerr << "Connection to response server unsuccessful." << std::endl;
+        close(sock);
+        return -1;
+    }
+
+    std::cout << "Connection to response server successful." << std::endl;
+
+    return sock;
+}
+
+/**
+ * @brief Receive an OrderMessage from the client socket.
+ * Helper method for poll_orders()
+ * 
+ * @param msg 
+ * @param clientSocket 
+ * @return true 
+ * @return false 
+ */
+bool MatchingEngine::receive_order_message(OrderMessage* msg, int clientSocket) {
     uint32_t msgLength;
     int bytesReceived = recv(clientSocket, &msgLength, sizeof(msgLength), 0);
     if (bytesReceived <= 0) {
         std::cerr << "Failed to receive message length." << std::endl;
-        return;
+        return false;
     }
 
     msgLength = ntohl(msgLength);  // Convert from network byte order
@@ -33,48 +105,89 @@ void receive_order_message(OrderMessage* msg, int clientSocket) {
     if (bytesReceived <= 0) {
         std::cerr << "Failed to receive message." << std::endl;
     } else {
-        if (msg->ParseFromArray(buffer, msgLength)) {
-            std::cout << "Success!";
-        } else {
-            std::cerr << "Failed to parse Protobuf message." << std::endl;
+        if (!msg->ParseFromArray(buffer, msgLength)) {
+            std::cerr << "Failed to parse OrderMessage" << std::endl;
+            return false;
         }
     }
+
+    return true;
+}
+
+bool MatchingEngine::send_response_message(OrderResponse* response, int sock) {
+    // Send the response message
+    std::string message;
+
+    if (!response->SerializeToString(&message)) {
+        std::cerr << "Failed to serialize response message." << std::endl;
+        return false;
+    }
+    // Send the length of the message first
+    uint32_t message_length = htonl(message.size());
+
+    send(sock, &message_length, sizeof(message_length), 0);
+
+    if (send(sock, message.c_str(), message.size(), 0) < 0) {
+        std::cerr << "Failed to send response message." << std::endl;
+        return false;
+    } else {
+        std::cout << "Sent response: " << response->order_id() << std::endl;
+    }
+
+    return true;
+ }
+
+/**
+ * @brief Polls for orders on the entry socket and processes them.
+ * 
+ * @param entry_socket 
+ */
+void MatchingEngine::poll_orders() {
+    std::cout << "Waiting for next order....." << std::endl;
+    int client = accept(server_socket, nullptr, nullptr);
+
+    OrderMessage order_message;
+    char* response;
+
+    // Receive incoming order
+    if (!receive_order_message(&order_message, client)) {
+        std::cerr << "Failed to receive order message." << std::endl;
+        response = "Error parsing message\n";
+    }
+    
+    else {
+        std::cout << "Received order: " << order_message.order_id() << "\n";
+        response = "Order received\n";
+    }
+    
+    handle_order_message(&order_message);
+    send(client, response, strlen(response), 0);
+}
+
+void MatchingEngine::handle_responses() {
+    // Send all order responses to the client
+    for (OrderResponse response : order_responses) {
+        if (!send_response_message(&response, client_socket)) {
+            std::cerr << "Failed to send response message: " << response.order_id() <<std::endl;
+        }
+    }
+    order_responses.clear(); // Clear responses after sending
 }
 
 /**
  * @brief 
  * TODO: Multithreading for input does not work
+ * TODO: Add error handling for socket connections
  */
 void MatchingEngine::run_engine() {
     // std::thread check_engine_running(&MatchingEngine::keyboard_listener);
 
     int current_user_id = 0;
-    
-    // Setting up server socket
-    int entry_socket = socket(AF_INET, SOCK_STREAM, 0);
-
-    sockaddr_in server_address;
-    server_address.sin_family = AF_INET;
-    server_address.sin_port = htons(56000);
-    server_address.sin_addr.s_addr = INADDR_ANY;
-
-    // Binding socket, setting to server mode
-    bind(entry_socket, (struct sockaddr*) &server_address, sizeof(server_address));
-    listen(entry_socket, 5);
 
     // Start engine polling loop
     while (engine_running) {
-        std::cout << "Waiting for next order....." << std::endl;
-        int client = accept(entry_socket, nullptr, nullptr);
-
-        OrderMessage order_message;
-
-        receive_order_message(&order_message, client);
-
-        std::cout << order_message.DebugString() << "\n";
-
-        char response[6] = "Helo!";
-        send(client, response, sizeof(response), 0);
+        poll_orders();
+        handle_responses();
     }
 }
 
@@ -98,12 +211,10 @@ void MatchingEngine::handle_order_message(OrderMessage* msg) {
     );
 
     // Add order to order book
-    std::vector<OrderResponse> responses = add_to_order_book(std::move(order));
+    std::vector<OrderResponse> new_responses = add_to_order_book(std::move(order));
 
-    // Print responses for debugging
-    for (const auto& response : responses) {
-        std::cout << "Response: " << response.DebugString() << std::endl;
-    }
+    // Add new responses to response vector
+    order_responses.insert(order_responses.end(), new_responses.begin(), new_responses.end());
 }
 
 /**
@@ -113,7 +224,7 @@ void MatchingEngine::handle_order_message(OrderMessage* msg) {
  * @param status 
  * @return OrderResponse 
  */
-OrderResponse construct_response(Order* order, OrderStatus status, float quantity) {
+OrderResponse MatchingEngine::construct_response(Order* order, OrderStatus status, float quantity) {
     OrderResponse response;
     response.set_order_id(order->order_id);
     response.set_user_id(order->user_id);

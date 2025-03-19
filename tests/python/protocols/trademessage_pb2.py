@@ -13,17 +13,21 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1cprotocols/trademessage.proto\"\xcb\x01\n\x0cOrderMessage\x12\x10\n\x08order_id\x18\x01 \x01(\x04\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x18\n\x04side\x18\x04 \x01(\x0e\x32\n.Direction\x12\x18\n\x10transaction_time\x18\x05 \x01(\x04\x12\x16\n\x0eorder_quantity\x18\x06 \x01(\x02\x12\x1e\n\norder_type\x18\x07 \x01(\x0e\x32\n.OrderType\x12\x12\n\x05price\x18\x08 \x01(\x02H\x00\x88\x01\x01\x42\x08\n\x06_price* \n\tDirection\x12\x08\n\x04LONG\x10\x00\x12\t\n\x05SHORT\x10\x01*\"\n\tOrderType\x12\n\n\x06MARKET\x10\x00\x12\t\n\x05LIMIT\x10\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1cprotocols/trademessage.proto\"\x9c\x01\n\x0cOrderMessage\x12\x10\n\x08order_id\x18\x01 \x01(\x04\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x18\n\x04side\x18\x04 \x01(\x0e\x32\n.Direction\x12\x18\n\x10transaction_time\x18\x05 \x01(\x04\x12\x16\n\x0eorder_quantity\x18\x06 \x01(\x02\x12\r\n\x05price\x18\x07 \x01(\x02\"\xbb\x01\n\rOrderResponse\x12\x10\n\x08order_id\x18\x01 \x01(\x04\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\x12\x0e\n\x06symbol\x18\x03 \x01(\t\x12\x18\n\x04side\x18\x04 \x01(\x0e\x32\n.Direction\x12\x18\n\x10transaction_time\x18\x05 \x01(\x04\x12\x16\n\x0eorder_quantity\x18\x06 \x01(\x02\x12\r\n\x05price\x18\x07 \x01(\x02\x12\x1c\n\x06status\x18\x08 \x01(\x0e\x32\x0c.OrderStatus* \n\tDirection\x12\x08\n\x04LONG\x10\x00\x12\t\n\x05SHORT\x10\x01*\"\n\tOrderType\x12\n\n\x06MARKET\x10\x00\x12\t\n\x05LIMIT\x10\x01*B\n\x0bOrderStatus\x12\x0b\n\x07PENDING\x10\x00\x12\n\n\x06\x46ILLED\x10\x01\x12\x0b\n\x07PARTIAL\x10\x02\x12\r\n\tCANCELLED\x10\x03\x62\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'protocols.trademessage_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  _DIRECTION._serialized_start=238
-  _DIRECTION._serialized_end=270
-  _ORDERTYPE._serialized_start=272
-  _ORDERTYPE._serialized_end=306
+  _DIRECTION._serialized_start=381
+  _DIRECTION._serialized_end=413
+  _ORDERTYPE._serialized_start=415
+  _ORDERTYPE._serialized_end=449
+  _ORDERSTATUS._serialized_start=451
+  _ORDERSTATUS._serialized_end=517
   _ORDERMESSAGE._serialized_start=33
-  _ORDERMESSAGE._serialized_end=236
+  _ORDERMESSAGE._serialized_end=189
+  _ORDERRESPONSE._serialized_start=192
+  _ORDERRESPONSE._serialized_end=379
 # @@protoc_insertion_point(module_scope)

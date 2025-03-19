@@ -73,5 +73,7 @@ int main() {
     MatchingEngine engine = MatchingEngine();
     
     test1();
+
+    engine.run_engine();
     return 0;
 }
