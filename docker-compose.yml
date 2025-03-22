@@ -1,0 +1,33 @@
+version: "3.8"
+
+services:
+  trade-messaging-service:
+    build: ./trade-messaging-service
+    ports:
+      - "56001:56001"  # Expose Python service on port 56001
+    networks:
+      - trading_net
+    env_file:
+      - .env
+    image:
+      trade-messaging-service-image
+    # depends_on:
+    #   - kafka
+
+  matching-engine:
+    build: ./matching-engine
+    ports:
+      - "56000:56000"  # Expose C++ service on port 56000
+    networks:
+      - trading_net
+    depends_on:
+      # - kafka
+      - trade-messaging-service # Wait for the Python service to be healthy
+    image:
+      matching-engine-image
+    env_file:
+      - .env # Connect to the Python service
+
+networks:
+  trading_net:
+    driver: bridge

@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <netdb.h>  // For getaddrinfo()
 
 #include <matching-engine.h>
 #include <order.h>
@@ -21,7 +22,6 @@ MatchingEngine::MatchingEngine() {
     order_responses = std::vector<OrderResponse>();
 
     server_socket = setup_server_socket();
-    client_socket = setup_client_socket();
 }
 
 /**
@@ -43,41 +43,6 @@ int MatchingEngine::setup_server_socket() {
     listen(entry_socket, 5);
 
     return entry_socket;
-}
-
-/**
- * @brief 
- * 
- * @return int 
- */
-int MatchingEngine::setup_client_socket() {
-    int sock = socket(AF_INET, SOCK_STREAM, 0);
-    
-    if (sock < 0) {
-        std::cerr << "Failed to create socket." << std::endl;
-        return -1;
-    }
-
-    struct sockaddr_in server_addr;
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(RESPONSE_PORT); 
-
-    if (inet_pton(AF_INET, RESPONSE_IP.c_str(), &server_addr.sin_addr) <= 0) {
-        std::cerr << "Invalid address/Address not supported." << std::endl;
-        close(sock);
-        return -1;
-    }
-
-    // Connect to server
-    if (connect(sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
-        std::cerr << "Connection to response server unsuccessful." << std::endl;
-        close(sock);
-        return -1;
-    }
-
-    std::cout << "Connection to response server successful." << std::endl;
-
-    return sock;
 }
 
 /**
@@ -114,7 +79,47 @@ bool MatchingEngine::receive_order_message(OrderMessage* msg, int clientSocket) 
     return true;
 }
 
-bool MatchingEngine::send_response_message(OrderResponse* response, int sock) {
+bool MatchingEngine::send_response_message(OrderResponse* response) {
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    
+    if (sock < 0) {
+        std::cerr << "Failed to create socket." << std::endl;
+        return -1;
+    }
+
+    // Resolve the hostname to an IP address
+    struct addrinfo hints, *res;
+    memset(&hints, 0, sizeof(hints));
+    hints.ai_family = AF_INET;  // IPv4
+    hints.ai_socktype = SOCK_STREAM;
+
+    int status = getaddrinfo(RESPONSE_HOST.c_str(), NULL, &hints, &res);
+    if (status != 0) {
+        std::cerr << "getaddrinfo failed: " << gai_strerror(status) << std::endl;
+        return 1;
+    }
+
+    struct sockaddr_in *server_in = (struct sockaddr_in *)res->ai_addr;
+    char *ip_str = inet_ntoa(server_in->sin_addr); // Convert binary IP to string
+
+    struct sockaddr_in server_addr;
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(RESPONSE_PORT); 
+
+    if (inet_pton(AF_INET, ip_str, &server_addr.sin_addr) <= 0) {
+        std::cout << ip_str << " is not a valid address." << std::endl;
+        std::cerr << "Invalid address/Address not supported." << std::endl;
+        close(sock);
+        return -1;
+    }
+
+    // Connect to server
+    if (connect(sock, (struct sockaddr*)&server_addr, sizeof(server_addr)) < 0) {
+        std::cerr << "Connection to response server unsuccessful." << std::endl;
+        close(sock);
+        return -1;
+    }
+    
     // Send the response message
     std::string message;
 
@@ -133,6 +138,8 @@ bool MatchingEngine::send_response_message(OrderResponse* response, int sock) {
     } else {
         std::cout << "Sent response: " << response->order_id() << std::endl;
     }
+
+    close(sock);
 
     return true;
  }
@@ -167,7 +174,7 @@ void MatchingEngine::poll_orders() {
 void MatchingEngine::handle_responses() {
     // Send all order responses to the client
     for (OrderResponse response : order_responses) {
-        if (!send_response_message(&response, client_socket)) {
+        if (!send_response_message(&response)) {
             std::cerr << "Failed to send response message: " << response.order_id() <<std::endl;
         }
     }

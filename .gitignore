@@ -4,8 +4,10 @@ matching-engine/build/
 test/
 matching-engine/lib/CMakeFiles/
 matching-engine/include/
-tests/python/__pycache__/
+**/__pycache__/
 tests/python/env/
 tests/python/protocols/__pycache__
 commands.txt
 .env
+
+**/.venv/
