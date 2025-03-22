@@ -15,9 +15,8 @@ jobs:
 
       - name: Build image
         run: 
-          docker-compose build
-          docker tag trade-messaging-service-image arcanefz/trade-messaging-service:latest
-          docker tag matching-engine-image arcanefz/matching-engine:latest
+          docker build ./matching-engine/ -t arcanefz/trade-messaging-service:latest
+          docker build ./trade-messaging-service/ -t arcanefz/matching-engine:latest
         
       - name: Login to Docker Hub
         run:
