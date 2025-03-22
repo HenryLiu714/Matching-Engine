@@ -14,16 +14,16 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build image
-        run: 
+        run: |
           docker build ./matching-engine/ -t arcanefz/trade-messaging-service:latest
           docker build ./trade-messaging-service/ -t arcanefz/matching-engine:latest
         
       - name: Login to Docker Hub
-        run:
+        run: |
           docker login -u arcanefz -p ${{ secrets.DOCKER_HUB_TOKEN }}
         
       - name: Push images to Docker Hub
-        run: 
+        run: |
           docker push arcanefz/trade-messaging-service:latest
           docker push arcanefz/matching-engine:latest 
 
