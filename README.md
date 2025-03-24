@@ -27,6 +27,20 @@ docker-compose up -d
 This will run the matching engine in the background, which can receive ```OrderMessage``` objects, as defined in ```./protocols/trademessage.proto``` on port ```56000```. Responses will be uploaded automatically to the Postgres server.
 
 Currently, the engine is set to run on port ```56000``` and the uploading service on port ```56001```. These values can be changed in their respective Dockerfiles, which are found in ```./trade-messaging-service``` and ```./matching-engine```, as well as in ```docker-compose.yml```.
+#### Local Setup
+Alternatively, instead of running via docker container, you can run locally.
+
+First, start the trade messaging service by installing ```./trade-messaging-service/requirements.txt```, then running ```python3 trade-messaging-service/main.py```.
+
+Then, start the matching engine by first installing protobuf, which can be done via ```apt-get install protobuf-compiler```, then running, from ```./matching-engine/```,
+
+```
+mkdir build && cd build
+cmake ..
+make
+```
+
+Doing so will create an executable ```./matching-engine/build/exchange```, which can be run to start the engine.
 
 # Docker Images
 [Matching Engine](https://hub.docker.com/r/arcanefz/matching-engine)
