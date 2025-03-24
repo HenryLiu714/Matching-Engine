@@ -21,7 +21,7 @@ def sample_order():
     order.side = trademessage_pb2.Direction.LONG
     order.transaction_time = 1612345678
     order.order_quantity = 100
-    order.price = 15000  # Price in cents
+    order.price = 15000 # Price in cents
     return order
 
 def start_client():
