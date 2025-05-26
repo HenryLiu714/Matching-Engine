@@ -4,7 +4,7 @@ This project is a simulation stock exchange designed to model order matching, tr
 The matching engine was primarily developed in C++ and connects to an intermediary Python service that handles responses from the engine. Previous trades and responses are stored in a Postgres database server, which are accessible by trading agents. Users may upload trades and maintain a portfolio individually via a Flask API (WORK IN PROGRESS).
 
 ## Design Workflow
-An initial workflow of the project can be seen below.
+An initial workflow of the project can be seen below. 
 
 ![Design Workflow](documentation/images/starting_design_flow.png)
 
