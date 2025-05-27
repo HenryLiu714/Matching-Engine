@@ -1,6 +1,25 @@
 version: "3.8"
 
 services:
+  services:
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: bitnami/kafka:latest
+    depends_on:
+      - zookeeper
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    ports:
+      - "9092:9092"
+  
   trade-messaging-service:
     build: ./trade-messaging-service
     ports:
@@ -11,8 +30,8 @@ services:
       - .env
     image:
       trade-messaging-service-image
-    # depends_on:
-    #   - kafka
+    depends_on:
+      - kafka
 
   matching-engine:
     build: ./matching-engine
@@ -21,7 +40,7 @@ services:
     networks:
       - trading_net
     depends_on:
-      # - kafka
+      - kafka
       - trade-messaging-service # Wait for the Python service to be healthy
     image:
       matching-engine-image

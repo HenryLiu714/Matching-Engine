@@ -9,5 +9,5 @@ tests/python/env/
 tests/python/protocols/__pycache__
 commands.txt
 .env
-
+build/
 **/.venv/
