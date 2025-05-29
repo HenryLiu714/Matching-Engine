@@ -4,11 +4,13 @@ import sys
 import socket
 import struct
 
+from utils.protocols import trademessage_pb2
+
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka import KafkaException, KafkaError
 from confluent_kafka import Consumer
 
-from protocols import trademessage_pb2
+# from protocols import trademessage_pb2
 
 load_dotenv()
 
