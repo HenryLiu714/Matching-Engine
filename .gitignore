@@ -11,3 +11,4 @@ commands.txt
 .env
 build/
 **/.venv/
+__pycache__/

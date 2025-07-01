@@ -108,6 +108,8 @@ class ResponseReceiver(object):
                         order = OrderResponse()
                         order.ParseFromString(data)
                         self.upload_order(order)
+                        
+                        print("Received and processed order response:", order)
 
                 except Exception as e:
                     print(f"Error: {e}")

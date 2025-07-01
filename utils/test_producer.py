@@ -12,12 +12,12 @@ p = Producer({'bootstrap.servers': 'localhost:9092'})
 
 def sample_order():
     order = trademessage_pb2.OrderMessage()
-    order.order_id = 123
+    order.order_id = 20
     order.user_id = 654321
-    order.symbol = "JOHN ROBLOX"
-    order.side = trademessage_pb2.Direction.SHORT
+    order.symbol = "superorder"
+    order.side = trademessage_pb2.Direction.LONG
     order.transaction_time = 1612345678
-    order.order_quantity = 100
+    order.order_quantity = 75
     order.price = 15000 # Price in cents
     return order
 

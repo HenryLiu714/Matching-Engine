@@ -7,6 +7,8 @@ services:
       - ALLOW_ANONYMOUS_LOGIN=yes
     ports:
       - "2181:2181"
+    networks:
+      - trading_net
 
   kafka:
     image: bitnami/kafka:3.5
@@ -17,12 +19,14 @@ services:
       - KAFKA_BROKER_ID=1
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
       - ALLOW_PLAINTEXT_LISTENER=yes
     depends_on:
       - zookeeper
+    networks:
+      - trading_net
   
   trade-messaging-service:
     build: ./trade-messaging-service
@@ -48,6 +52,18 @@ services:
       - trade-messaging-service # Wait for the Python service to be healthy
     image:
       matching-engine-image
+    env_file:
+      - .env # Connect to the Python service
+
+  polling-service:
+    build: ./polling-service
+    networks:
+      - trading_net
+    depends_on:
+      - kafka
+      - trade-messaging-service # Wait for the Python service to be healthy
+    image:
+      polling-service-image
     env_file:
       - .env # Connect to the Python service
 
