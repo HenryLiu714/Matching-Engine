@@ -3,12 +3,15 @@ from dotenv import load_dotenv
 import sys
 import socket
 import struct
+import time
+
+from protocols import trademessage_pb2
 
 from confluent_kafka.admin import AdminClient, NewTopic
 from confluent_kafka import KafkaException, KafkaError
 from confluent_kafka import Consumer
 
-from protocols import trademessage_pb2
+# from protocols import trademessage_pb2
 
 load_dotenv()
 
@@ -18,17 +21,30 @@ topic_name = os.getenv("TRADE_TOPIC")
 order_host = os.getenv("ORDER_HOST")
 order_port = int(os.getenv("ORDER_PORT"))
 
-def ensure_topic(bootstrap_servers, topic_name):
-    admin = AdminClient({'bootstrap.servers': bootstrap_servers})
-    topics = admin.list_topics(timeout=10).topics
+def ensure_topic(bootstrap_servers, topic_name, num_retries=5):
+    while num_retries > 0:
+        try:
+            admin = AdminClient({'bootstrap.servers': bootstrap_servers})
+            topics = admin.list_topics(timeout=10).topics
 
-    if topic_name not in topics:
-        print(f"Creating topic {topic_name}")
-        new_topic = NewTopic(topic_name, num_partitions=1, replication_factor=1)
-        fs = admin.create_topics([new_topic])
-        fs[topic_name].result()  # Raises if failed
-    else:
-        pass
+            if topic_name not in topics:
+                print(f"Creating topic {topic_name}")
+                new_topic = NewTopic(topic_name, num_partitions=1, replication_factor=1)
+                fs = admin.create_topics([new_topic])
+                fs[topic_name].result()  # Raises if failed
+            else:
+                pass
+                
+            print(f"Topic {topic_name} is ready.")
+            return True
+        
+        except KafkaException as e:
+            print(f"Error creating topic {topic_name}: {e}")
+            num_retries -= 1
+            
+            time.sleep(10)  # Wait before retrying
+            
+    return False
 
 def process_message(msg):
     # Forwards message to trade messaging server
@@ -75,9 +91,10 @@ def consumer_loop(consumer, topics):
 if __name__ == "__main__":
     if not bootstrap_servers or not topic_name:
         raise ValueError("KAFKA_BOOTSTRAP_SERVERS and TRADE_TOPIC must be set in .env file")
-    
-    ensure_topic(bootstrap_servers, topic_name)
-    
+
+    if not ensure_topic(bootstrap_servers, topic_name):
+        raise ValueError(f"Failed to create or verify topic {topic_name}")
+
     # Create a Kafka consumer
     consumer = Consumer({
         'bootstrap.servers': bootstrap_servers,
